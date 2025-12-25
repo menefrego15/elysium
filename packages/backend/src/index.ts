@@ -69,7 +69,14 @@ const app = new Elysia()
       message: isProduction ? 'Something went wrong' : 'message' in error ? error.message : 'An error occurred',
     };
   })
-  .use(cors())
+  .use(
+    cors({
+      origin: env.APP_URL,
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+  )
   .use(
     swagger({
       documentation: {

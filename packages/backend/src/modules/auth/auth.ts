@@ -22,4 +22,13 @@ export const auth = betterAuth({
   trustedOrigins: [env.APP_URL, env.BETTER_AUTH_URL],
   basePath: '/api/auth',
   secret: env.BETTER_AUTH_SECRET,
+  advanced: {
+    useSecureCookies: process.env.NODE_ENV === 'production',
+    defaultCookieAttributes: {
+      sameSite: 'none',
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      path: '/',
+    },
+  },
 });
