@@ -1,15 +1,15 @@
 # Full Stack TypeScript Starter
 
-Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. Type-safe from database to frontend.
+Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. End-to-end type safety from database to UI.
 
-## Stack
+## Tech Stack
 
 - **Runtime:** Bun
-- **Frontend:** React 19 + Vite + TanStack Router + Tailwind CSS 4
+- **Frontend:** React 19 + TanStack Router/Query + Tailwind CSS 4
 - **Backend:** Elysia + TypeScript
-- **Database:** PostgreSQL + Drizzle ORM
+- **Database:** PostgreSQL + Drizzle ORM + drizzle-typebox
 - **Auth:** Better Auth (Google OAuth)
-- **Type-safety:** Eden Treaty for end-to-end type safety
+- **Type-safety:** Eden Treaty (end-to-end)
 
 ## Quick Start
 
@@ -55,120 +55,96 @@ Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. Type-safe f
 ## Project Structure
 
 ```
-├── packages/
-│   ├── backend/          # Elysia API
-│   │   ├── src/
-│   │   │   ├── controllers/   # Route handlers
-│   │   │   ├── services/      # Business logic
-│   │   │   ├── database/      # Schemas & models
-│   │   │   ├── lib/           # Auth & DB setup
-│   │   │   └── middleware/    # Auth middleware
-│   │   └── drizzle/           # Migrations
-│   └── web/              # React frontend
-│       └── src/
-│           ├── pages/         # Route components
-│           └── lib/           # API client & auth
-├── tsconfig.base.json    # Shared TypeScript config
-└── justfile              # Task runner
+packages/
+├── backend/              # Elysia API
+│   ├── src/
+│   │   ├── modules/      # Feature modules (posts, auth, health)
+│   │   │   └── posts/
+│   │   │       ├── index.ts    # Routes (controller)
+│   │   │       ├── service.ts  # Business logic
+│   │   │       └── model.ts    # Validation + types
+│   │   ├── database/     # DB schema
+│   │   ├── lib/          # Errors, DB, models
+│   │   └── routes/       # Route aggregation
+│   └── drizzle/          # Migrations
+└── web/                  # React frontend
+    └── src/
+        ├── pages/        # Page components
+        ├── hooks/        # Custom hooks (use-posts, use-create-post, etc.)
+        ├── components/   # UI components
+        └── lib/          # Client, auth, utils
 ```
 
-## Database Setup
+## Architecture
 
-### Adding a New Table
+### Backend - Feature Modules
 
-1. Define schema in `packages/backend/src/database/schema.ts`
-2. Export in the `table` object:
-   ```ts
-   export const table = {
-     postsTable,
-     user,
-     session,
-     account,
-     verification,
-     yourNewTable, // Add here
-   } as const;
-   ```
+Each module follows the same pattern:
+- `index.ts` - Routes (Elysia controller)
+- `service.ts` - Business logic + DB queries
+- `model.ts` - TypeBox schemas + types (generated from Drizzle)
 
-3. Add to models in `packages/backend/src/database/model.ts`:
-   ```ts
-   export const db = {
-     insert: spreads({ yourNewTable: table.yourNewTable }, "insert"),
-     select: spreads({ yourNewTable: table.yourNewTable }, "select"),
-   };
-   ```
+**Error Handling:**
+- Custom error classes (`BadRequestError`, `NotFoundError`, etc.)
+- Auto re-throw in `ServerError` constructor
+- Global error handler in `index.ts`
 
-4. Generate and apply migration:
-   ```bash
-   cd packages/backend
-   bunx drizzle-kit generate
-   bunx drizzle-kit migrate
-   # Or for development
-   bunx drizzle-kit push
-   ```
+### Frontend - TanStack Router + Query
 
-### Drizzle Kit Commands
+- **Router:** Code-based with `createRoute()`, protected routes, data loaders
+- **Query:** Custom hooks pattern, consistent error handling, auto cache invalidation
+
+### Database Commands
 
 ```bash
 cd packages/backend
 
-# Generate migration from schema changes
-bunx drizzle-kit generate
-
-# Apply migrations
-bunx drizzle-kit migrate
-
-# Push schema directly (dev only)
+# Push schema changes (development)
 bunx drizzle-kit push
+
+# Generate + apply migrations (production)
+bunx drizzle-kit generate && bunx drizzle-kit migrate
 
 # Open Drizzle Studio
 bunx drizzle-kit studio
 ```
 
-## Google OAuth Setup
-
-1. Go to https://console.cloud.google.com
-2. Create a new project
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials
-5. Add authorized redirect URIs:
-   - `http://localhost:3001/api/auth/callback/google`
-6. Copy Client ID and Secret to `packages/backend/.env`
-
 ## Environment Variables
 
-### Backend (`packages/backend/.env`)
-
+**Backend** (`packages/backend/.env`):
 ```env
 PORT=3001
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-BETTER_AUTH_SECRET=your-secret-key
+BETTER_AUTH_SECRET=<openssl rand -base64 32>
 BETTER_AUTH_URL=http://localhost:3001
-GOOGLE_CLIENT_ID=your-client-id
-GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_CLIENT_ID=<from console.cloud.google.com>
+GOOGLE_CLIENT_SECRET=<from console.cloud.google.com>
 ```
 
-### Frontend (`packages/web/.env`)
-
+**Frontend** (`packages/web/.env`):
 ```env
 VITE_API_URL=http://localhost:3001
 VITE_AUTH_URL=http://localhost:3001
 ```
 
-## API Documentation
+**Google OAuth Setup:**
+1. https://console.cloud.google.com → Create project → OAuth 2.0
+2. Add redirect URI: `http://localhost:3001/api/auth/callback/google`
 
-Swagger UI available at http://localhost:3001/swagger when backend is running.
+## Documentation
+
+- **API Docs:** http://localhost:3001/swagger (when running)
+- **DB Studio:** `bunx drizzle-kit studio` in `packages/backend`
 
 ## Features
 
-- ✅ Type-safe API with Elysia + Eden Treaty
-- ✅ Authentication with Better Auth
-- ✅ Google OAuth integration
-- ✅ Protected routes
-- ✅ CRUD example (Posts)
-- ✅ Database migrations with Drizzle
-- ✅ Monorepo with workspace support
-- ✅ Path aliases (`@frontend/*`, `@backend/*`)
-- ✅ Hot reload on both frontend and backend
+- ✅ End-to-end type safety (DB → API → UI)
+- ✅ Feature-based modules (Elysia best practices)
+- ✅ Auth with Google OAuth (Better Auth)
+- ✅ Consistent error handling (backend + frontend)
+- ✅ Auto-generated schemas (drizzle-typebox)
+- ✅ CRUD example with mutations (TanStack Query)
+- ✅ Path aliases + monorepo workspace
 
 ## License
 
