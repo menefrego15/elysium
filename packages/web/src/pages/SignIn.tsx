@@ -43,6 +43,7 @@ export function SignIn({ className, ...props }: React.ComponentProps<'div'>) {
       });
       if (error) {
         toast.error(error.message ?? 'Something went wrong');
+        return;
       }
       formApi.reset();
     },

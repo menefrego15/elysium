@@ -13,6 +13,7 @@ import { auth } from '@frontend/lib/auth';
 import { cn, passwordSchema } from '@frontend/lib/utils';
 import { useForm } from '@tanstack/react-form';
 import { Link } from '@tanstack/react-router';
+import { toast } from 'sonner';
 import z from 'zod';
 
 const signUpSchema = z
@@ -30,10 +31,13 @@ const signUpSchema = z
 
 export function SignUp({ className, ...props }: React.ComponentProps<'div'>) {
   const handleSignUpWithGoogle = async () => {
-    await auth.signIn.social({
+    const { error } = await auth.signIn.social({
       provider: 'google',
       callbackURL: window.location.origin,
     });
+    if (error) {
+      toast.error(error.message ?? 'Something went wrong');
+    }
   };
 
   const form = useForm({
@@ -48,12 +52,16 @@ export function SignUp({ className, ...props }: React.ComponentProps<'div'>) {
       onBlur: signUpSchema,
     },
     onSubmit: async ({ value, formApi }) => {
-      await auth.signUp.email({
+      const { error } = await auth.signUp.email({
         name: `${value.name} ${value.lastname}`,
         email: value.email,
         password: value.password,
         callbackURL: window.location.origin,
       });
+      if (error) {
+        toast.error(error.message ?? 'Something went wrong');
+        return;
+      }
       formApi.reset();
     },
   });
