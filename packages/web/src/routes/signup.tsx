@@ -1,6 +1,6 @@
 import { SignUp } from '@frontend/pages/SignUp';
+import { rootRoute } from '@frontend/routes/root';
 import { createRoute, redirect } from '@tanstack/react-router';
-import { rootRoute } from './root';
 
 export const signUpRoute = createRoute({
   getParentRoute: () => rootRoute,

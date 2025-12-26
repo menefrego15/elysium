@@ -1,8 +1,4 @@
 import { env } from '@backend/env';
-import { routes } from '@backend/routes';
-import cors from '@elysiajs/cors';
-import swagger from '@elysiajs/swagger';
-import { Elysia } from 'elysia';
 import {
   BadRequestError,
   ConflictError,
@@ -11,7 +7,11 @@ import {
   NotFoundError,
   ServerError,
   UnauthorizedError,
-} from './lib/errors';
+} from '@backend/lib/errors';
+import { routes } from '@backend/routes';
+import cors from '@elysiajs/cors';
+import swagger from '@elysiajs/swagger';
+import { Elysia } from 'elysia';
 
 const app = new Elysia()
   .error({

@@ -1,6 +1,6 @@
 import Index from '@frontend/pages/Index';
+import { rootRoute } from '@frontend/routes/root';
 import { createRoute } from '@tanstack/react-router';
-import { rootRoute } from './root';
 
 export const indexRoute = createRoute({
   getParentRoute: () => rootRoute,

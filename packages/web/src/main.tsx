@@ -6,8 +6,8 @@ import '@frontend/styles.css';
 
 import { AppWrapper } from '@frontend/components/AppWrapper';
 import { queryClient } from '@frontend/config/router';
+import reportWebVitals from '@frontend/reportWebVitals.ts';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import reportWebVitals from './reportWebVitals.ts';
 
 const rootElement = document.getElementById('app');
 if (rootElement && !rootElement.innerHTML) {

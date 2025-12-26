@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://starter-elysium.vercel.app/logo512.png" alt="Elysium Logo" width="200"/>
 
-  # Full Stack TypeScript Starter
+# Full Stack TypeScript Starter
 
   Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. End-to-end type safety from database to UI.
 </div>
@@ -18,11 +18,13 @@
 ## Quick Start
 
 1. **Install dependencies**
+
    ```bash
    bun install
    ```
 
 2. **Setup environment variables**
+
    ```bash
    # Backend
    cp packages/backend/.env.example packages/backend/.env
@@ -31,29 +33,30 @@
    ```
 
 3. **Configure environment variables**
-   - Get Google OAuth credentials at https://console.cloud.google.com
+   - Get Google OAuth credentials at <https://console.cloud.google.com>
    - Generate auth secret: `openssl rand -base64 32`
    - Setup PostgreSQL database
 
-4. **Start database** (using justfile)
+4. **Start everything** (PostgreSQL, backend, and web with live logs)
+
    ```bash
-   just postgres-up
+   just start
    ```
 
-5. **Run migrations**
-   ```bash
-   cd packages/backend
-   bunx drizzle-kit push
-   ```
+   This will:
+   - Start PostgreSQL container
+   - Install dependencies
+   - Run database migrations
+   - Start backend server
+   - Start web dev server
+   - Display live logs from both services
 
-6. **Start development servers**
-   ```bash
-   # From root
-   just dev
+   Press `Ctrl+C` to stop all services.
 
-   # Or manually
-   cd packages/backend && bun run dev
-   cd packages/web && bun run dev
+5. **Stop everything**
+
+   ```bash
+   just stop
    ```
 
 ## Project Structure
@@ -84,11 +87,13 @@ packages/
 ### Backend - Feature Modules
 
 Each module follows the same pattern:
+
 - `index.ts` - Routes (Elysia controller)
 - `service.ts` - Business logic + DB queries
 - `model.ts` - TypeBox schemas + types (generated from Drizzle)
 
 **Error Handling:**
+
 - Custom error classes (`BadRequestError`, `NotFoundError`, etc.)
 - Auto re-throw in `ServerError` constructor
 - Global error handler in `index.ts`
@@ -98,16 +103,49 @@ Each module follows the same pattern:
 - **Router:** Code-based with `createRoute()`, protected routes, data loaders
 - **Query:** Custom hooks pattern, consistent error handling, auto cache invalidation
 
-### Database Commands
+## Available Commands (justfile)
+
+### Main Commands
+
+- `just start` - Start everything (PostgreSQL, backend, web) with live logs
+- `just stop` - Stop all services (PostgreSQL, backend, web)
+- `just deps-install` - Install dependencies
+- `just migrate` - Run database migrations
+
+### PostgreSQL Commands
+
+- `just postgres-start` - Start PostgreSQL container
+- `just postgres-stop` - Stop PostgreSQL container
+- `just postgres-remove` - Remove PostgreSQL container
+- `just postgres-url` - Show PostgreSQL connection URL
+- `just postgres-status` - Check PostgreSQL status
+- `just postgres-shell` - Access PostgreSQL shell
+- `just postgres-logs` - View PostgreSQL logs
+
+### Utility Commands
+
+- `just env-info` - Show environment information
+- `just clean` - Remove node_modules and build artifacts
+- `just reset` - Full reset (clean + remove postgres container)
+- `just check-port` - Check if PostgreSQL port is available
+
+### Database Commands (Drizzle)
+
+**Note:** Migrations are automatically run when using `just start`. Use these commands for manual operations:
 
 ```bash
 cd packages/backend
 
-# Push schema changes (development)
-bunx drizzle-kit push
+# Run migrations manually
+just migrate
+# or
+bun run db:migrate
 
-# Generate + apply migrations (production)
-bunx drizzle-kit generate && bunx drizzle-kit migrate
+# Push schema changes (development - bypasses migrations)
+bun run db:push
+
+# Generate new migrations
+bun run db:generate
 
 # Open Drizzle Studio
 bunx drizzle-kit studio
@@ -116,6 +154,7 @@ bunx drizzle-kit studio
 ## Environment Variables
 
 **Backend** (`packages/backend/.env`):
+
 ```env
 PORT=3001
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
@@ -126,19 +165,22 @@ GOOGLE_CLIENT_SECRET=<from console.cloud.google.com>
 ```
 
 **Frontend** (`packages/web/.env`):
+
 ```env
 VITE_API_URL=http://localhost:3001
 VITE_AUTH_URL=http://localhost:3001
 ```
 
 **Google OAuth Setup:**
-1. https://console.cloud.google.com → Create project → OAuth 2.0
+
+1. <https://console.cloud.google.com> → Create project → OAuth 2.0
 2. Add redirect URI: `http://localhost:3001/api/auth/callback/google`
 
 ## Documentation
 
-- **API Docs:** http://localhost:3001/swagger (when running)
+- **API Docs:** <http://localhost:3001/swagger>
 - **DB Studio:** `bunx drizzle-kit studio` in `packages/backend`
+- **PostgreSQL URL:** Run `just postgres-url` to see the connection string
 
 ## Features
 
