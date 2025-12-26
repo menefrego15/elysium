@@ -1,6 +1,10 @@
-# Full Stack TypeScript Starter
+<div align="center">
+  <img src="https://starter-elysium.vercel.app/logo512.png" alt="Elysium Logo" width="200"/>
 
-Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. End-to-end type safety from database to UI.
+  # Full Stack TypeScript Starter
+
+  Modern full-stack monorepo with Bun, React, Elysia, and Drizzle ORM. End-to-end type safety from database to UI.
+</div>
 
 ## Tech Stack
 
