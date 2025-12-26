@@ -43,14 +43,13 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               render={
+                // biome-ignore lint/a11y/useAnchorContent: <>
                 <a
                   aria-label="View on GitHub"
                   href="https://github.com/menefrego15/starter"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
-                  <span className="sr-only">View on GitHub</span>
-                </a>
+                />
               }
               nativeButton={false}
             >
