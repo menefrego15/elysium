@@ -21,13 +21,13 @@ export function HeroSection() {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-primary" />
             </span>
-            The Best Full-Stack Starter Kit
+            A Modern Full-Stack Starter Kit
           </div>
 
           <h1 className="mb-6 text-balance font-semibold text-4xl tracking-tight md:text-6xl lg:text-7xl">
             Build Modern Apps
             <br />
-            <span className="text-primary">Faster Than Ever</span>
+            <span className="text-primary">With Less Boilerplate</span>
           </h1>
 
           <p className="mb-10 text-lg text-muted-foreground md:text-xl">
@@ -39,8 +39,22 @@ export function HeroSection() {
             <Button size="lg" render={<Link to="/sign-in" />} nativeButton={false}>
               Get Started
             </Button>
-            <Button size="lg" variant="outline" render={<Link to="/posts" />} nativeButton={false}>
-              Dashboard
+            <Button
+              size="lg"
+              variant="outline"
+              render={
+                <a
+                  aria-label="View on GitHub"
+                  href="https://github.com/menefrego15/starter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="sr-only">View on GitHub</span>
+                </a>
+              }
+              nativeButton={false}
+            >
+              View on GitHub
             </Button>
           </div>
 
@@ -50,7 +64,7 @@ export function HeroSection() {
                 <HugeiconsIcon icon={Lightning} className="size-5 text-primary" />
                 <div className="font-medium text-sm">Bun Runtime</div>
               </div>
-              <div className="text-muted-foreground text-xs">Ultra-fast</div>
+              <div className="text-muted-foreground text-xs">Fast & efficient</div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
@@ -64,7 +78,7 @@ export function HeroSection() {
                 <HugeiconsIcon icon={Layers} className="size-5 text-primary" />
                 <div className="font-medium text-sm">Modern Stack</div>
               </div>
-              <div className="text-muted-foreground text-xs">Best tools</div>
+              <div className="text-muted-foreground text-xs">Well-integrated</div>
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
