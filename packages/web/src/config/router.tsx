@@ -1,16 +1,14 @@
 import { Button } from '@frontend/components/ui/button';
+import { queryClient } from '@frontend/lib/queryClient';
 import { authRoute } from '@frontend/routes/auth';
 import { indexRoute } from '@frontend/routes/index';
 import { postsRoute } from '@frontend/routes/posts';
 import { rootRoute } from '@frontend/routes/root';
 import { signInRoute } from '@frontend/routes/signin';
 import { signUpRoute } from '@frontend/routes/signup';
-import { QueryClient } from '@tanstack/react-query';
 import { createRouter, Link } from '@tanstack/react-router';
 
 const routeTree = rootRoute.addChildren([authRoute.addChildren([postsRoute]), indexRoute, signInRoute, signUpRoute]);
-
-const queryClient = new QueryClient();
 
 export const router = createRouter({
   defaultErrorComponent: ({ error, reset }) => {
@@ -56,5 +54,3 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-
-export { queryClient };
