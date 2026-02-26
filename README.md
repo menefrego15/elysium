@@ -37,7 +37,7 @@
    - Generate auth secret: `openssl rand -base64 32`
    - Setup PostgreSQL database
 
-4. **Start everything** (PostgreSQL, backend, and web with live logs)
+4. **Start backend** (PostgreSQL, migrations, and backend server)
 
    ```bash
    just start
@@ -48,12 +48,14 @@
    - Install dependencies
    - Run database migrations
    - Start backend server
-   - Start web dev server
-   - Display live logs from both services
 
-   Press `Ctrl+C` to stop all services.
+5. **Start web dev server** (in a separate terminal)
 
-5. **Stop everything**
+   ```bash
+   cd packages/web && bun run dev
+   ```
+
+6. **Stop everything**
 
    ```bash
    just stop
@@ -157,9 +159,10 @@ bunx drizzle-kit studio
 
 ```env
 PORT=3001
-DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+DATABASE_URL=postgresql://postgres:localpassword@localhost:5434/myapp
 BETTER_AUTH_SECRET=<openssl rand -base64 32>
 BETTER_AUTH_URL=http://localhost:3001
+APP_URL=http://localhost:3000
 GOOGLE_CLIENT_ID=<from console.cloud.google.com>
 GOOGLE_CLIENT_SECRET=<from console.cloud.google.com>
 ```
