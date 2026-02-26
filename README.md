@@ -109,27 +109,9 @@ Each module follows the same pattern:
 
 ### Main Commands
 
-- `just start` - Start everything (PostgreSQL, backend, web) with live logs
-- `just stop` - Stop all services (PostgreSQL, backend, web)
-- `just deps-install` - Install dependencies
-- `just migrate` - Run database migrations
-
-### PostgreSQL Commands
-
-- `just postgres-start` - Start PostgreSQL container
-- `just postgres-stop` - Stop PostgreSQL container
-- `just postgres-remove` - Remove PostgreSQL container
-- `just postgres-url` - Show PostgreSQL connection URL
-- `just postgres-status` - Check PostgreSQL status
-- `just postgres-shell` - Access PostgreSQL shell
-- `just postgres-logs` - View PostgreSQL logs
-
-### Utility Commands
-
-- `just env-info` - Show environment information
-- `just clean` - Remove node_modules and build artifacts
-- `just reset` - Full reset (clean + remove postgres container)
-- `just check-port` - Check if PostgreSQL port is available
+- `just start` - Start everything (PostgreSQL, install dependencies, run migrations, dev server)
+- `just stop` - Stop PostgreSQL container
+- `just reset-db` - Remove PostgreSQL container completely (stop + remove)
 
 ### Database Commands (Drizzle)
 
