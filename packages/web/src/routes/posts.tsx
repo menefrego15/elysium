@@ -1,5 +1,5 @@
 import { postsQueryOptions } from '@frontend/hooks/use-posts';
-import { Posts } from '@frontend/pages/Posts';
+import { Posts } from '@frontend/pages/posts';
 import { authRoute } from '@frontend/routes/auth';
 import { createRoute } from '@tanstack/react-router';
 

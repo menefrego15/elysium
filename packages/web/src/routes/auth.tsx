@@ -1,4 +1,4 @@
-import { AppLayout } from '@frontend/layouts/AppLayout';
+import { AppLayout } from '@frontend/layouts/app-layout';
 import { redirectSearchSchema } from '@frontend/lib/validations';
 import { rootRoute } from '@frontend/routes/root';
 import { createRoute, redirect } from '@tanstack/react-router';

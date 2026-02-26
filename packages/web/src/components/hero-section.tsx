@@ -1,11 +1,9 @@
 import { Button } from '@frontend/components/ui/button';
-import { auth } from '@frontend/lib/auth';
 import { Layers, Lightning, Rocket, ShieldCheck } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@tanstack/react-router';
 
 export function HeroSection() {
-  const { data: session } = auth.useSession();
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden py-32">
       <div className="-z-10 absolute inset-0 flex items-center justify-center">
@@ -38,7 +36,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" render={session ? <Link to="/posts" /> : <Link to="/sign-in" />} nativeButton={false}>
+            <Button size="lg" render={<Link to="/get-started" />} nativeButton={false}>
               Get Started
             </Button>
             <Button

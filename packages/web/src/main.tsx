@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client';
 
 import '@frontend/styles.css';
 
-import { AppWrapper } from '@frontend/components/AppWrapper';
-import { queryClient } from '@frontend/lib/queryClient';
+import { AppWrapper } from '@frontend/components/app-wrapper';
+import { queryClient } from '@frontend/lib/query-client';
 import reportWebVitals from '@frontend/reportWebVitals.ts';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 

@@ -1,12 +1,12 @@
 import { redirectSearchSchema } from '@frontend/lib/validations';
-import { SignIn } from '@frontend/pages/SignIn';
+import { SignUp } from '@frontend/pages/sign-up';
 import { rootRoute } from '@frontend/routes/root';
 import { createRoute, redirect } from '@tanstack/react-router';
 
-export const signInRoute = createRoute({
+export const signUpRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/sign-in',
-  component: SignIn,
+  path: '/sign-up',
+  component: SignUp,
   validateSearch: redirectSearchSchema,
   beforeLoad: ({ context, location }) => {
     if (context.auth.session) {

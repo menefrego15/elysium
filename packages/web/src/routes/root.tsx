@@ -1,4 +1,4 @@
-import { RootLayout } from '@frontend/components/RootLayout';
+import { RootLayout } from '@frontend/components/root-layout';
 import type { auth } from '@frontend/lib/auth';
 import type { QueryClient } from '@tanstack/react-query';
 import { createRootRouteWithContext } from '@tanstack/react-router';
