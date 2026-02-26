@@ -1,6 +1,6 @@
 import type { CreatePostRequest } from '@backend/modules/posts/model';
-import { queryClient } from '@frontend/config/router';
 import { client } from '@frontend/lib/client';
+import { queryClient } from '@frontend/lib/queryClient';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
