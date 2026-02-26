@@ -6,7 +6,7 @@ const insertPostSchema = createInsertSchema(table.postsTable);
 const selectPostSchema = createSelectSchema(table.postsTable);
 
 export const createPostRequest = t.Omit(insertPostSchema, ['id']);
-export const updatePostRequest = t.Partial(insertPostSchema);
+export const updatePostRequest = t.Partial(t.Omit(insertPostSchema, ['id']));
 export const postResponse = selectPostSchema;
 
 export const PostModel = new Elysia({ name: 'Post.Model' }).model({
