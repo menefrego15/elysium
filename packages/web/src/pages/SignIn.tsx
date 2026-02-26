@@ -13,14 +13,18 @@ import { auth } from '@frontend/lib/auth';
 import { cn } from '@frontend/lib/utils';
 import { signInSchema } from '@frontend/lib/validations';
 import { useForm } from '@tanstack/react-form';
-import { Link } from '@tanstack/react-router';
+import { Link, useSearch } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
 export function SignIn({ className, ...props }: React.ComponentProps<'div'>) {
+  const search = useSearch({
+    from: '/sign-in',
+  });
+
   const handleSignUpWithGoogle = async () => {
     const { error } = await auth.signIn.social({
       provider: 'google',
-      callbackURL: window.location.origin,
+      callbackURL: search.redirect ?? window.location.origin,
     });
     if (error) {
       toast.error(error.message ?? 'Something went wrong');

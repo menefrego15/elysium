@@ -10,30 +10,21 @@ import {
 } from '@frontend/components/ui/field';
 import { Input } from '@frontend/components/ui/input';
 import { auth } from '@frontend/lib/auth';
-import { cn, passwordSchema } from '@frontend/lib/utils';
+import { cn } from '@frontend/lib/utils';
+import { signUpSchema } from '@frontend/lib/validations';
 import { useForm } from '@tanstack/react-form';
-import { Link } from '@tanstack/react-router';
+import { Link, useSearch } from '@tanstack/react-router';
 import { toast } from 'sonner';
-import z from 'zod';
-
-const signUpSchema = z
-  .object({
-    name: z.string().min(1, 'Name is required'),
-    lastname: z.string().min(1, 'Last name is required'),
-    email: z.email(),
-    password: passwordSchema,
-    confirmPassword: passwordSchema,
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
 
 export function SignUp({ className, ...props }: React.ComponentProps<'div'>) {
+  const search = useSearch({
+    from: '/sign-up',
+  });
+
   const handleSignUpWithGoogle = async () => {
     const { error } = await auth.signIn.social({
       provider: 'google',
-      callbackURL: window.location.origin,
+      callbackURL: search.redirect ?? window.location.origin,
     });
     if (error) {
       toast.error(error.message ?? 'Something went wrong');
