@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "@elysium/web",
   "private": true,
   "type": "module",
   "scripts": {

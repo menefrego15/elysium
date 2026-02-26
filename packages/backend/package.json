@@ -1,15 +1,15 @@
 {
-  "name": "backend",
+  "name": "@elysium/backend",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "start": "bun run db:migrate && bun run src/index.ts",
+    "lint": "tsc && biome check ./src",
     "format": "biome check ./src --unsafe --write",
-    "lint": "biome check ./src --unsafe --write",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push"
+    "db:generate": "bunx drizzle-kit generate",
+    "db:migrate": "bunx drizzle-kit migrate",
+    "db:push": "bunx drizzle-kit push"
   },
   "dependencies": {
     "@better-auth/cli": "^1.4.7",
