@@ -1,4 +1,4 @@
-import Index from '@frontend/pages/index';
+import Index from '@frontend/pages/index.tsx';
 import { rootRoute } from '@frontend/routes/root';
 import { createRoute } from '@tanstack/react-router';
 
