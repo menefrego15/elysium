@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json bun.lock ./
 COPY packages/backend/package.json ./packages/backend/
 COPY packages/web/package.json ./packages/web/
-RUN bun install
+RUN bun install --ignore-scripts
 
 COPY packages/backend ./packages/backend
 
