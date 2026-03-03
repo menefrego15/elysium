@@ -7,6 +7,7 @@ COPY packages/backend/package.json ./packages/backend/
 COPY packages/web/package.json ./packages/web/
 RUN bun install --ignore-scripts
 
+COPY tsconfig.base.json ./
 COPY packages/backend ./packages/backend
 
 ENV NODE_ENV=production
