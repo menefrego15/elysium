@@ -1,0 +1,10 @@
+{
+  "file": "packages/backend/src/index.ts",
+  "operations": [
+    {
+      "type": "replace",
+      "search": "tags: [{ name: 'Health', description: 'Health check endpoints' }],",
+      "replace": "tags: [\n          { name: 'Health', description: 'Health check endpoints' },\n          { name: 'Posts', description: 'Post management endpoints' },\n        ],"
+    }
+  ]
+}

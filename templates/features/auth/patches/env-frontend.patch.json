@@ -1,0 +1,15 @@
+{
+  "file": "packages/web/src/config/env.ts",
+  "operations": [
+    {
+      "type": "replace",
+      "search": "const envSchema = z.object({\n  apiUrl: z.url().default('http://localhost:3001'),\n});",
+      "replace": "const envSchema = z.object({\n  apiUrl: z.url().default('http://localhost:3001'),\n  authUrl: z.url().default('http://localhost:3001'),\n});"
+    },
+    {
+      "type": "replace",
+      "search": "const parsed = envSchema.safeParse({\n    apiUrl: import.meta.env.VITE_API_URL,\n  });",
+      "replace": "const parsed = envSchema.safeParse({\n    apiUrl: import.meta.env.VITE_API_URL,\n    authUrl: import.meta.env.VITE_AUTH_URL,\n  });"
+    }
+  ]
+}

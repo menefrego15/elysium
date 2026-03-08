@@ -22,5 +22,13 @@
       { "from": "frontend/pages/sign-in.tsx", "to": "src/pages/sign-in.tsx" },
       { "from": "frontend/pages/sign-up.tsx", "to": "src/pages/sign-up.tsx" }
     ]
+  },
+  "replaceFiles": {
+    "frontend": [
+      { "from": "patches/router.tsx", "to": "src/config/router.tsx" },
+      { "from": "patches/root.tsx", "to": "src/routes/root.tsx" },
+      { "from": "patches/app-wrapper.tsx", "to": "src/components/app-wrapper.tsx" },
+      { "from": "patches/app-layout.tsx", "to": "src/layouts/app-layout.tsx" }
+    ]
   }
 }

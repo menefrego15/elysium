@@ -1,0 +1,15 @@
+{
+  "file": "packages/backend/src/routes/index.ts",
+  "operations": [
+    {
+      "type": "replace",
+      "search": "import { health } from '@backend/modules/health';\nimport { posts } from '@backend/modules/posts';",
+      "replace": "import { authMiddleware } from '@backend/modules/auth/middleware';\nimport { health } from '@backend/modules/health';\nimport { posts } from '@backend/modules/posts';"
+    },
+    {
+      "type": "replace",
+      "search": ".use(health)\n  .use(posts);",
+      "replace": ".use(authMiddleware)\n  .use(health)\n  .use(posts);"
+    }
+  ]
+}

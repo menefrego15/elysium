@@ -6,7 +6,7 @@ import { Link } from '@tanstack/react-router';
 export function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden py-32">
-      <div className="-z-10 absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <div className="relative size-[800px] md:size-[1200px]">
           <div className="absolute inset-0 rounded-full border border-border/50" />
           <div className="absolute inset-8 rounded-full border border-border/30" />

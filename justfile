@@ -12,7 +12,7 @@ dev-web:
 
 # Start both backend and frontend
 dev:
-    bun run dev-backend & bun run dev-web
+    just dev-backend & just dev-web
 
 # Build frontend for production
 build:

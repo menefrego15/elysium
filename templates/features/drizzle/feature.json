@@ -7,6 +7,13 @@
       "devAdd": ["@types/pg"]
     }
   },
+  "scripts": {
+    "backend": {
+      "db:generate": "bunx drizzle-kit generate",
+      "db:migrate": "bunx drizzle-kit migrate",
+      "db:push": "bunx drizzle-kit push"
+    }
+  },
   "envVars": ["DATABASE_URL"],
   "files": {
     "backend": [
@@ -15,6 +22,10 @@
       { "from": "backend/modules/posts", "to": "src/modules/posts" },
       { "from": "backend/drizzle.config.ts", "to": "drizzle.config.ts" },
       { "from": "backend/drizzle", "to": "drizzle" }
+    ],
+    "frontend": [
+      { "from": "frontend/hooks", "to": "src/hooks" },
+      { "from": "frontend/posts", "to": "src/components/posts" }
     ]
   }
 }

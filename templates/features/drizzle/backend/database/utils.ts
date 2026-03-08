@@ -4,17 +4,18 @@ import { Kind, type TObject } from '@sinclair/typebox';
 import type { Table } from 'drizzle-orm';
 import { type BuildSchema, createInsertSchema, createSelectSchema } from 'drizzle-typebox';
 
-type Spread<T extends TObject | Table, Mode extends 'select' | 'insert' | undefined> = T extends TObject<infer Fields>
-  ? {
-      [K in keyof Fields]: Fields[K];
-    }
-  : T extends Table
-    ? Mode extends 'select'
-      ? BuildSchema<'select', T['_']['columns'], undefined>['properties']
-      : Mode extends 'insert'
-        ? BuildSchema<'insert', T['_']['columns'], undefined>['properties']
-        : {}
-    : {};
+type Spread<T extends TObject | Table, Mode extends 'select' | 'insert' | undefined> =
+  T extends TObject<infer Fields>
+    ? {
+        [K in keyof Fields]: Fields[K];
+      }
+    : T extends Table
+      ? Mode extends 'select'
+        ? BuildSchema<'select', T['_']['columns'], undefined>['properties']
+        : Mode extends 'insert'
+          ? BuildSchema<'insert', T['_']['columns'], undefined>['properties']
+          : {}
+      : {};
 
 export const spread = <T extends TObject | Table, Mode extends 'select' | 'insert' | undefined>(
   schema: T,
