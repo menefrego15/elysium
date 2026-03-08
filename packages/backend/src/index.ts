@@ -85,11 +85,7 @@ const app = new Elysia()
           version: '1.0.0',
           description: 'Modern full-stack starter with Elysia, React, and Drizzle',
         },
-        tags: [
-          { name: 'Health', description: 'Health check endpoints' },
-          { name: 'Posts', description: 'Posts CRUD operations' },
-          { name: 'Auth', description: 'Authentication endpoints' },
-        ],
+        tags: [{ name: 'Health', description: 'Health check endpoints' }],
       },
     }),
   )

@@ -36,7 +36,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" render={<Link to="/get-started" />} nativeButton={false}>
+            <Button size="lg" render={<Link to="/" />} nativeButton={false}>
               Get Started
             </Button>
             <Button

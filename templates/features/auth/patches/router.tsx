@@ -1,10 +1,21 @@
 import { Button } from '@frontend/components/ui/button';
 import { queryClient } from '@frontend/lib/query-client';
+import { authRoute } from '@frontend/routes/auth';
+import { getStartedRoute } from '@frontend/routes/get-started';
 import { indexRoute } from '@frontend/routes/index';
+import { postsRoute } from '@frontend/routes/posts';
 import { rootRoute } from '@frontend/routes/root';
+import { signInRoute } from '@frontend/routes/sign-in';
+import { signUpRoute } from '@frontend/routes/sign-up';
 import { createRouter, Link } from '@tanstack/react-router';
 
-const routeTree = rootRoute.addChildren([indexRoute]);
+const routeTree = rootRoute.addChildren([
+  authRoute.addChildren([postsRoute]),
+  indexRoute,
+  signInRoute,
+  signUpRoute,
+  getStartedRoute,
+]);
 
 export const router = createRouter({
   defaultErrorComponent: ({ error, reset }) => {
@@ -34,6 +45,10 @@ export const router = createRouter({
   routeTree,
   context: {
     queryClient,
+    auth: {
+      session: null,
+      isLoading: false,
+    },
   },
   defaultPreload: 'intent',
   scrollRestoration: true,

@@ -1,0 +1,26 @@
+{
+  "name": "auth",
+  "description": "Better Auth with Google OAuth and email/password",
+  "requires": ["drizzle"],
+  "dependencies": {
+    "backend": {
+      "add": ["better-auth", "@better-auth/cli"]
+    },
+    "frontend": {
+      "add": ["better-auth"]
+    }
+  },
+  "envVars": ["BETTER_AUTH_SECRET", "BETTER_AUTH_URL", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"],
+  "files": {
+    "backend": [{ "from": "backend/modules/auth", "to": "src/modules/auth" }],
+    "frontend": [
+      { "from": "frontend/lib/auth.ts", "to": "src/lib/auth.ts" },
+      { "from": "frontend/lib/validations.ts", "to": "src/lib/validations.ts" },
+      { "from": "frontend/routes/auth.tsx", "to": "src/routes/auth.tsx" },
+      { "from": "frontend/routes/sign-in.tsx", "to": "src/routes/sign-in.tsx" },
+      { "from": "frontend/routes/sign-up.tsx", "to": "src/routes/sign-up.tsx" },
+      { "from": "frontend/pages/sign-in.tsx", "to": "src/pages/sign-in.tsx" },
+      { "from": "frontend/pages/sign-up.tsx", "to": "src/pages/sign-up.tsx" }
+    ]
+  }
+}

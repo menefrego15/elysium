@@ -1,17 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@frontend/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@frontend/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -23,10 +12,9 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@frontend/components/ui/sidebar';
-import { auth } from '@frontend/lib/auth';
-import { CheckListIcon, HomeIcon, UnfoldMoreIcon } from '@hugeicons/core-free-icons';
+import { HomeIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Link, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, useLocation } from '@tanstack/react-router';
 
 type NavItem = {
   title: string;
@@ -39,11 +27,6 @@ const navMain: NavItem[] = [
     title: 'Home',
     url: '/',
     icon: HomeIcon,
-  },
-  {
-    title: 'Posts',
-    url: '/posts',
-    icon: CheckListIcon,
   },
 ];
 
@@ -67,16 +50,6 @@ export const AppLayout = () => {
 
 const AppSidebar = () => {
   const location = useLocation();
-  const { data: session } = auth.useSession();
-  const navigate = useNavigate();
-
-  if (!session) return null;
-
-  const user = {
-    name: session.user.name,
-    email: session.user.email,
-    avatar: session.user.image,
-  };
 
   const isItemActive = (item: NavItem) => {
     return location.pathname === item.url || location.pathname.startsWith(`${item.url}/`);
@@ -121,65 +94,6 @@ const AppSidebar = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                render={
-                  <SidebarMenuButton
-                    size="lg"
-                    className="data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
-                  />
-                }
-              >
-                <Avatar>
-                  <AvatarImage src={user.avatar ?? ''} />
-                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
-                </div>
-                <HugeiconsIcon icon={UnfoldMoreIcon} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel>
-                    <div className="flex items-center gap-2">
-                      <Avatar>
-                        <AvatarImage src={user.avatar ?? ''} />
-                        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex flex-col">
-                        <span className="line-clamp-1 truncate font-medium text-sm leading-snug">{user.name}</span>
-                        <span className="line-clamp-2 truncate text-xs">{user.email}</span>
-                      </div>
-                    </div>
-                  </DropdownMenuLabel>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Account</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={async () => {
-                      await auth.signOut();
-                      navigate({ to: '/sign-in', reloadDocument: true });
-                    }}
-                  >
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

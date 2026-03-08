@@ -1,0 +1,20 @@
+{
+  "name": "drizzle",
+  "description": "PostgreSQL + Drizzle ORM with example CRUD module",
+  "dependencies": {
+    "backend": {
+      "add": ["drizzle-orm", "drizzle-kit", "drizzle-typebox", "pg"],
+      "devAdd": ["@types/pg"]
+    }
+  },
+  "envVars": ["DATABASE_URL"],
+  "files": {
+    "backend": [
+      { "from": "backend/database", "to": "src/database" },
+      { "from": "backend/lib/db.ts", "to": "src/lib/db.ts" },
+      { "from": "backend/modules/posts", "to": "src/modules/posts" },
+      { "from": "backend/drizzle.config.ts", "to": "drizzle.config.ts" },
+      { "from": "backend/drizzle", "to": "drizzle" }
+    ]
+  }
+}
