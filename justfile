@@ -1,5 +1,6 @@
 # Variables
-POSTGRES_CONTAINER := "myapp-postgres"
+
+POSTGRES_CONTAINER := "elysium-postgres"
 POSTGRES_PORT := "5434"
 
 # Start services (PostgreSQL, install, migrate, dev)
